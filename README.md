@@ -54,7 +54,7 @@ Este proyecto implementa un sistema completo de **predicción de precios de inmu
 - ✅ **Análisis de términos:** Palabras más predictivas del precio
 - ✅ **Comparación integral:** Modelos con y sin texto
 
-#### 5. **06_evaluacion_final_performance.ipynb** 📊
+#### 5. **05_evaluacion_final_performance.ipynb** 📊
 **Duración estimada:** 5-10 minutos
 - ✅ **Consigna 6:** Evaluación de 6 modelos optimizados sobre test
 - ✅ **Análisis comparativo:** Modelos con vs sin descripciones
@@ -70,7 +70,7 @@ Este proyecto implementa un sistema completo de **predicción de precios de inmu
 2. Ejecutar: 02_modelos_tradicionales.ipynb
 3. Ejecutar: 03_modelos_ml.ipynb
 4. Ejecutar: 04_modelos_nlp.ipynb
-5. Ejecutar: 06_evaluacion_final_performance.ipynb
+5. Ejecutar: 05_evaluacion_final_performance.ipynb
 ```
 
 ### Opción 2: Ejecución Independiente
