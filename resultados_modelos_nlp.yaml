@@ -1,0 +1,87 @@
+- modelo: Random Forest NLP
+  hiperparametros:
+    min_samples_split: 5
+    min_samples_leaf: 2
+    max_features: 0.6
+    max_depth: 20
+    n_estimators: 150
+  cv_score: 1032785570.3687422
+  train_rmse: 17730.249460957533
+  test_rmse: 29900.235962711828
+  train_r2: 0.954476917194585
+  test_r2: 0.8701153287649455
+  test_mae: 19454.71609924339
+  overfitting_ratio: 1.6863968004823011
+  rmse_improvement: 13059.764037288172
+  r2_improvement: 0.14171532876494541
+  better_than_baseline: true
+  top_features:
+  - feature: trad_surface_covered
+    importance: 0.3412581493821708
+  - feature: trad_surface_total
+    importance: 0.20341022950492826
+  - feature: trad_bathrooms
+    importance: 0.06314311268774835
+  - feature: texto_dim_12
+    importance: 0.04830780162985483
+  - feature: trad_l3_Palermo
+    importance: 0.025863286004837224
+- modelo: XGBoost NLP
+  hiperparametros:
+    subsample: 0.9
+    reg_lambda: 2.0
+    reg_alpha: 0.1
+    max_depth: 8
+    learning_rate: 0.15
+    colsample_bytree: 0.8
+    n_estimators: 300
+  cv_score: 769958144.0
+  train_rmse: 17808.309071891133
+  test_rmse: 26471.35327103622
+  train_r2: 0.9540752172470093
+  test_r2: 0.8981969356536865
+  test_mae: 17284.021484375
+  overfitting_ratio: 1.4864607955855251
+  rmse_improvement: 16488.64672896378
+  r2_improvement: 0.16979693565368648
+  better_than_baseline: true
+  top_features:
+  - feature: trad_l3_Puerto Madero
+    importance: 0.061449527740478516
+  - feature: trad_surface_covered
+    importance: 0.05535931512713432
+  - feature: trad_l3_Palermo
+    importance: 0.04303836449980736
+  - feature: trad_l3_Belgrano
+    importance: 0.03793186694383621
+  - feature: trad_surface_total
+    importance: 0.03034641221165657
+- modelo: Red Neuronal NLP Simple
+  framework: PyTorch
+  arquitectura: '2 capas: [128, 64]'
+  device_used: cuda
+  test_rmse: 28193.07829946918
+  test_r2: 0.8845235109329224
+  test_mae: 19012.576171875
+  rmse_improvement: 14766.92170053082
+  r2_improvement: 0.15612351093292232
+  better_than_baseline: true
+  epochs_trained: 100
+  hidden_layers:
+  - 128
+  - 64
+- modelo: Red Neuronal NLP (NN Estándar)
+  framework: PyTorch GPU
+  arquitectura: PyTorch custom
+  device_used: cuda
+  train_rmse: 34867.64918947074
+  test_rmse: 35097.330268839534
+  train_r2: 0.8239454030990601
+  test_r2: 0.8210396766662598
+  test_mae: 24639.759765625
+  overfitting_ratio: 1.0065872258299005
+  rmse_improvement: 7862.669731160466
+  r2_improvement: 0.09263967666625972
+  better_than_baseline: true
+  iterations_trained: 50
+  convergence_status: early_stopped

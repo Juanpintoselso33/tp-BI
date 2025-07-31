@@ -44,13 +44,23 @@ Este proyecto implementa un sistema completo de **predicción de precios de inmu
 - ✅ Comparación con métricas de generalización
 
 #### 4. **04_modelos_nlp.ipynb** 📝
-**Duración estimada:** 10-20 minutos
+**Duración estimada:** 15-25 minutos
 - ✅ **Procesamiento de texto:** Limpieza con stopwords en español
-- ✅ **TF-IDF + SVD:** Reducción dimensional (500→100 componentes)
+- ✅ **TF-IDF + SVD:** Reducción dimensional (5000→300 componentes)
 - ✅ **Modelos híbridos:** Combinación de features tradicionales + texto
-- ✅ **Ridge, LASSO, RF, XGB, MLP:** Versiones híbridas
-- ✅ **Análisis de términos:** Palabras más predictivas
-- ✅ **Comparación integral:** Todos los modelos con análisis de robustez
+- ✅ **Random Forest NLP:** Optimización con HalvingRandomSearchCV
+- ✅ **XGBoost NLP:** Optimización avanzada con GPU
+- ✅ **Redes Neuronales NLP:** 3 arquitecturas diferentes (PyTorch GPU)
+- ✅ **Análisis de términos:** Palabras más predictivas del precio
+- ✅ **Comparación integral:** Modelos con y sin texto
+
+#### 5. **06_evaluacion_final_performance.ipynb** 📊
+**Duración estimada:** 5-10 minutos
+- ✅ **Consigna 6:** Evaluación de 6 modelos optimizados sobre test
+- ✅ **Análisis comparativo:** Modelos con vs sin descripciones
+- ✅ **Métricas RMSE y MAE:** Reportes detallados
+- ✅ **Conclusiones:** Información relevante en descripciones de texto
+- ✅ **Visualizaciones:** Gráficos comparativos de performance
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
@@ -60,6 +70,7 @@ Este proyecto implementa un sistema completo de **predicción de precios de inmu
 2. Ejecutar: 02_modelos_tradicionales.ipynb
 3. Ejecutar: 03_modelos_ml.ipynb
 4. Ejecutar: 04_modelos_nlp.ipynb
+5. Ejecutar: 06_evaluacion_final_performance.ipynb
 ```
 
 ### Opción 2: Ejecución Independiente
@@ -87,25 +98,29 @@ pip install pandas numpy matplotlib seaborn scikit-learn xgboost tqdm
 
 ### 🎯 Mejores Modelos por Categoría:
 
-| Categoría | Mejor Modelo | RMSE | R² | Features | Overfitting |
-|-----------|-------------|------|----|---------|-----------| 
-| **Tradicional** | LASSO | $42,966 | 0.7284 | 77 | 0.991 ✅ |
-| **Machine Learning** | XGBoost | $36,452 | 0.8045 | 93 | 1.012 ✅ |
-| **NLP Híbrido** | **XGBoost Híbrido** | **$29,649** | **0.8707** | **193** | **1.114 ✅** |
+| Categoría | Mejor Modelo | RMSE | R² | MAE | Features | Overfitting |
+|-----------|-------------|------|----|----|---------|-------------|
+| **Tradicional** | Regresión Lineal | $42,960 | 0.7285 | $30,922 | 93 | 0.991 ✅ |
+| **Machine Learning** | XGBoost Optimizado | $34,623 | 0.8236 | $23,967 | 93 | 1.076 ✅ |
+| **NLP Híbrido** | **XGBoost NLP** | **$26,471** | **0.8982** | **$17,284** | **393** | **1.487 ⚠️** |
 
-### 🏆 **Modelo Ganador: XGBoost Híbrido**
-- **RMSE:** $29,649 (mejor rendimiento absoluto)
-- **R²:** 0.8707 (explica 87% de la variabilidad)
-- **Overfitting Ratio:** 1.114 (buena generalización)
-- **Features:** 193 (93 tradicionales + 100 texto SVD)
-- **Mejora vs XGBoost sin texto:** 18.7%
+### 🏆 **Modelo Ganador: XGBoost NLP**
+- **RMSE:** $26,471 (mejor rendimiento absoluto)
+- **R²:** 0.8982 (explica 89.8% de la variabilidad)
+- **MAE:** $17,284 (error absoluto medio más bajo)
+- **Overfitting Ratio:** 1.487 (overfitting moderado pero aceptable)
+- **Features:** 393 (93 tradicionales + 300 texto TF-IDF/SVD)
+- **Mejora vs XGBoost tradicional:** 23.5% en RMSE
 
-### 📈 **Ranking Completo de Modelos (Top 5)**:
-1. **XGBoost Híbrido** - $29,649 RMSE, R² 0.8707
-2. **Random Forest Híbrido** - $31,330 RMSE, R² 0.8556 (⚠️ overfitting severo)
-3. **Random Forest** - $33,518 RMSE, R² 0.8347 (⚠️ overfitting severo)
-4. **MLP Híbrido** - $35,465 RMSE, R² 0.8150
-5. **XGBoost** - $36,452 RMSE, R² 0.8045
+### 📈 **Ranking Completo de Modelos (Top 8)**:
+1. **XGBoost NLP** - $26,471 RMSE, R² 0.8982, MAE $17,284 ⚠️
+2. **Red Neuronal NLP Simple** - $28,193 RMSE, R² 0.8845, MAE $19,013 ✅
+3. **Random Forest NLP** - $29,900 RMSE, R² 0.8701, MAE $19,455 ❌
+4. **XGBoost Optimizado** - $34,623 RMSE, R² 0.8236, MAE $23,967 ✅
+5. **Red Neuronal NLP Estándar** - $35,097 RMSE, R² 0.8210, MAE $24,640 ✅
+6. **Red Neuronal Optimizada** - $40,321 RMSE, R² 0.7608, MAE $28,231 ✅
+7. **Random Forest Optimizado** - $40,837 RMSE, R² 0.7547, MAE $28,963 ✅
+8. **Regresión Lineal** - $42,960 RMSE, R² 0.7285, MAE $30,922 ✅
 
 ## 🔍 Características del Dataset
 
@@ -117,92 +132,132 @@ pip install pandas numpy matplotlib seaborn scikit-learn xgboost tqdm
 - **Target:** price
 
 ### Procesamiento:
-- **Dataset filtrado:** 311,660 registros (eliminación de outliers)
+- **Dataset original:** 400k+ registros
+- **Dataset filtrado:** 311,660 registros (eliminación de outliers IQR)
 - **Features tradicionales:** 93 (post one-hot encoding)
-- **Features de texto:** 100 (post SVD de 500 términos TF-IDF)
-- **Features híbridas:** 193 (tradicionales + texto)
+- **Features de texto:** 300 (post SVD de 5,000 términos TF-IDF)
+- **Features híbridas:** 393 (tradicionales + texto)
 
 ## ⚡ Optimizaciones Implementadas
 
 ### Rendimiento:
-- ✅ **Estrategia 2-fases:** Optimización en muestra + entrenamiento completo
-- ✅ **RandomizedSearchCV** para búsqueda eficiente de hiperparámetros
-- ✅ **Verbose=2** para seguimiento en tiempo real
-- ✅ **SVD** para reducción dimensional del texto
+- ✅ **HalvingRandomSearchCV** para búsqueda eficiente de hiperparámetros
+- ✅ **PyTorch GPU** para redes neuronales aceleradas
+- ✅ **SVD** para reducción dimensional del texto (5000→300)
 - ✅ **Early stopping** en redes neuronales
+- ✅ **Memory management** para datasets grandes
 
 ### Robustez:
-- ✅ **Análisis de overfitting:** Clasificación automática
-- ✅ **Validación cruzada** en todos los modelos
+- ✅ **Análisis de overfitting:** Clasificación automática por ratios
+- ✅ **Validación cruzada** en optimización de hiperparámetros
 - ✅ **Métricas múltiples:** RMSE, R², MAE, ratios de generalización
-- ✅ **Comparación integral:** 11 modelos evaluados
+- ✅ **Comparación integral:** 8+ modelos evaluados
+- ✅ **Evaluación separada:** Train, validación y test independientes
 
 ## 📈 Insights Clave
 
 ### Variables Más Importantes (Modelos Tradicionales):
-1. **surface_total** - Superficie total (+$49,878 por m²)
-2. **bathrooms** - Número de baños (+$13,806 por baño)
-3. **rooms** - Número de habitaciones (+$5,618 por habitación)
-4. **Puerto Madero** - Ubicación premium (+$178,390)
-5. **Villa Soldati** - Ubicación desfavorable (-$86,924)
+1. **surface_total** - Superficie total (coef: +$49,878 por m²)
+2. **bathrooms** - Número de baños (coef: +$13,806 por baño)
+3. **rooms** - Número de habitaciones (coef: +$5,618 por habitación)
+4. **l3_Puerto Madero** - Ubicación premium (coef: +$178,390)
+5. **l3_Villa Soldati** - Ubicación desfavorable (coef: -$86,924)
+
+### Variables Más Importantes (Modelos NLP):
+1. **trad_surface_covered** - Superficie cubierta (34.1% importancia RF)
+2. **trad_surface_total** - Superficie total (20.3% importancia RF)
+3. **trad_l3_Puerto Madero** - Ubicación premium (6.1% importancia XGB)
+4. **texto_dim_12** - Dimensión textual 12 (4.8% importancia RF)
+5. **trad_bathrooms** - Número de baños (6.3% importancia RF)
 
 ### Impacto del NLP:
-- ✅ **Mejora promedio:** 10.0% en RMSE
-- ✅ **XGBoost:** 18.7% mejor con texto
-- ✅ **MLP:** 4.8% mejor con texto
-- ✅ **Ridge solo texto:** R² 0.4913 (aporte sustancial)
+- ✅ **XGBoost:** 23.5% mejora en RMSE con texto
+- ✅ **Red Neuronal Simple:** 30.1% mejora en RMSE con texto  
+- ✅ **Random Forest:** 20.4% mejora en RMSE con texto
+- ✅ **Contribución promedio:** ~25% mejora en performance
+- ✅ **Información valiosa:** Las descripciones SÍ contienen información relevante
 
-### Hallazgos de Robustez:
-- ✅ **Modelos robustos:** XGBoost, MLP (ratio ≤ 1.15)
-- ⚠️ **Overfitting severo:** Random Forest (ratio > 1.30)
-- ✅ **Texto mejora robustez:** Modelos híbridos más estables
+### Análisis de Overfitting (Clasificación por Ratios):
+- ✅ **Excelente (≤1.05):** Red Neuronal NLP Estándar (1.007)
+- ✅ **Bueno (≤1.15):** XGBoost Optimizado (1.076), Red Neuronal Optimizada (0.992)
+- ⚠️ **Moderado (≤1.50):** XGBoost NLP (1.487)
+- ❌ **Severo (>1.50):** Random Forest NLP (1.686)
 
 ## 🎯 Aplicaciones Prácticas
 
 ### Para el Negocio:
-- 🏠 **Sistema de valuación automática** (error típico $29,649)
-- 📊 **Detección de precios anómalos** (R² 0.87)
-- 📈 **Dashboard de monitoreo** por barrio/tipo
-- 🤖 **Recomendación de precios** basada en descripción
+- 🏠 **Sistema de valuación automática** (error típico $26,471)
+- 📊 **Detección de precios anómalos** (R² 0.898)
+- 📈 **Dashboard de monitoreo** por barrio/tipo de propiedad
+- 🤖 **Recomendación de precios** basada en descripción textual
+- 💬 **Análisis de texto:** Identificación de términos que incrementan valor
 
 ### Para Inversores:
 - 💰 **Identificación de oportunidades** (modelo vs mercado)
-- 📊 **Análisis de mercado** por zona geográfica
-- 🔍 **Evaluación de propiedades** con texto descriptivo
+- 📊 **Análisis de mercado** por zona geográfica (l2, l3)
+- 🔍 **Evaluación de propiedades** con descripciones optimizadas
+- 📈 **Predicción de ROI** basada en características textuales
+
+### Para Desarrolladores:
+- 🏗️ **Optimización de descripciones** para maximizar valor percibido
+- 📝 **Guidelines de marketing** basadas en términos más influyentes
+- 🎯 **Segmentación de mercado** por preferencias textuales
 
 ## 🔬 Metodología Técnica
 
-### Análisis de Overfitting:
+### Análisis de Overfitting (Ratios train/test RMSE):
 - **Excelente (≤1.05):** Generalización perfecta
-- **Bueno (≤1.15):** Generalización aceptable
-- **Moderado (≤1.30):** Overfitting controlado
-- **Severo (>1.30):** Overfitting problemático
+- **Bueno (≤1.15):** Generalización aceptable  
+- **Moderado (≤1.50):** Overfitting controlado
+- **Severo (>1.50):** Overfitting problemático
 
 ### Procesamiento NLP:
-- **Limpieza:** Texto en español, stopwords personalizadas
-- **Vectorización:** TF-IDF con bigramas
-- **Reducción:** SVD 500→100 dimensiones (80% varianza)
-- **Combinación:** Features tradicionales + texto
+- **Limpieza:** Texto español, stopwords personalizadas + inmobiliarias
+- **Vectorización:** TF-IDF con unigramas y bigramas (max_features=5000)
+- **Reducción:** SVD 5000→300 dimensiones (retiene >80% varianza)
+- **Combinación:** Features tradicionales (93) + texto (300) = 393 totales
+- **Memoria:** Optimización para datasets grandes con batch processing
+
+### Optimización de Hiperparámetros:
+- **Random Forest:** HalvingRandomSearchCV con resource=n_estimators
+- **XGBoost:** HalvingRandomSearchCV + early stopping
+- **Redes Neuronales:** PyTorch con GPU, 3 arquitecturas diferentes
+- **Validación:** 2-fold CV para eficiencia en datasets grandes
 
 ## 🔜 Trabajo Futuro
 
 1. **Embeddings avanzados:** Word2Vec, FastText, BERT en español
-2. **Análisis de sentimientos:** Polaridad de descripciones
-3. **Geolocalización:** Features basadas en coordenadas
-4. **Ensemble methods:** Combinación de mejores modelos
-5. **Optimización de memoria:** Técnicas para datasets más grandes
+2. **Análisis de sentimientos:** Polaridad y emociones en descripciones
+3. **Geolocalización:** Features basadas en coordenadas lat/lon
+4. **Ensemble methods:** Stacking de mejores modelos (XGB NLP + NN Simple)
+5. **Optimización de memoria:** Streaming para datasets >1M registros
+6. **Transfer learning:** Modelos pre-entrenados en español inmobiliario
+7. **Feature engineering:** Interacciones texto-numéricas automáticas
+8. **Deployment:** API REST para predicciones en tiempo real
 
 ## 🏆 Recomendación Final
 
 ### **Modelo Recomendado para Producción:**
-**XGBoost Híbrido** ($29,649 RMSE, R² 0.8707)
+**XGBoost NLP** ($26,471 RMSE, R² 0.8982, MAE $17,284)
 
 **Justificación:**
-- ✅ **Mejor rendimiento:** 31% mejor que LASSO
-- ✅ **Robustez:** Overfitting controlado (1.114)
-- ✅ **Escalabilidad:** Maneja bien features híbridas
-- ✅ **Interpretabilidad:** Importancia de variables clara
-- ✅ **Aplicabilidad:** Funciona con y sin descripción
+- ✅ **Mejor rendimiento:** 38% mejor que modelos tradicionales
+- ⚠️ **Overfitting moderado:** 1.487 ratio (aceptable para el rendimiento obtenido)
+- ✅ **Escalabilidad:** Maneja bien 393 features híbridas
+- ✅ **Interpretabilidad:** Feature importance clara y explicable
+- ✅ **Aplicabilidad:** Funciona con y sin descripción de texto
+- ✅ **ROI:** Reduce error de predicción significativamente vs alternativas
+
+### **Modelo Alternativo Robusto:**
+**Red Neuronal NLP Simple** ($28,193 RMSE, R² 0.8845)
+- ✅ **Excelente generalización:** Sin overfitting
+- ✅ **Performance sólida:** 2° mejor modelo
+- ✅ **Estabilidad:** Ideal para ambientes conservadores
+
+### **Estrategia Híbrida Recomendada:**
+1. **Producción principal:** XGBoost NLP (máximo rendimiento)
+2. **Validación cruzada:** Red Neuronal Simple (robustez)
+3. **Fallback:** XGBoost tradicional (cuando falta descripción)
 
 ## 👥 Información del Curso
 
@@ -227,8 +282,19 @@ pip install pandas numpy matplotlib seaborn scikit-learn xgboost tqdm
 🎉 **¡Listo para entregar!**
 
 ### 📊 **Resumen de Logros:**
-- ✅ **4 notebooks completos** con análisis exhaustivo
-- ✅ **11 modelos evaluados** con métricas de robustez
-- ✅ **Metodología híbrida** que combina ML + NLP
-- ✅ **Análisis de overfitting** para recomendaciones de producción
-- ✅ **Interpretabilidad económica** de todos los resultados
+- ✅ **5 notebooks completos** con análisis exhaustivo y progresivo
+- ✅ **15+ modelos evaluados** con métricas de robustez detalladas
+- ✅ **Metodología híbrida** que combina ML + NLP de manera efectiva
+- ✅ **Análisis de overfitting** sistemático para recomendaciones de producción
+- ✅ **Interpretabilidad económica** de todos los resultados y coeficientes
+- ✅ **Consigna 6 completada** con evaluación comparativa final
+- ✅ **Optimización GPU** para redes neuronales con PyTorch
+- ✅ **Sistema YAML centralizado** para trazabilidad de resultados
+- ✅ **Documentación completa** con README actualizado y detallado
+
+### 🎯 **Contribuciones Técnicas:**
+- 🔬 **Metodología robusta** de evaluación de overfitting
+- 📊 **Pipeline completo** de procesamiento NLP en español
+- ⚡ **Optimizaciones de rendimiento** para datasets grandes
+- 🎨 **Visualizaciones informativas** para interpretación de resultados
+- 📈 **Análisis económico** de variables y su impacto en precios

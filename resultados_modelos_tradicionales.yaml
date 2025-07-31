@@ -1,0 +1,66 @@
+- modelo: Regresión Lineal
+  tipo: tradicional
+  hiperparametros:
+    n_jobs: -1
+  n_features: 93
+  metricas:
+    train:
+      RMSE: 43356.88360773925
+      MAE: 31155.966512289935
+      R2: 0.7286083860557586
+    test:
+      RMSE: 42959.612484793295
+      MAE: 30921.86596154153
+      R2: 0.7284966235835599
+    overfitting_ratio: 0.990837184550897
+  notebook: 02_modelos_tradicionales.ipynb
+- modelo: LASSO
+  tipo: tradicional
+  hiperparametros:
+    alpha: 96.71798642975463
+    max_iter: 2000
+    random_state: 42
+  n_features: 77
+  total_features: 93
+  metricas:
+    train:
+      RMSE: 43365.54024268568
+      MAE: 31105.142620185747
+      R2: 0.7285000031431346
+    test:
+      RMSE: 42965.7384224582
+      MAE: 30869.73294570444
+      R2: 0.7284191866027026
+    overfitting_ratio: 0.9907806563001388
+  notebook: 02_modelos_tradicionales.ipynb
+- comparacion_tradicionales:
+    modelos:
+    - Regresión Lineal
+    - LASSO
+    mejor_modelo: Regresión Lineal
+    mejor_rmse: 42959.612484793295
+    mejor_r2: 0.7284966235835599
+    diferencia_rmse: 6.1259376649031765
+    diferencia_r2: 7.74369808573816e-05
+    tabla_completa:
+    - Modelo: Regresión Lineal
+      RMSE_Train: 43356.8836
+      RMSE_Test: 42959.6125
+      MAE_Train: 31155.9665
+      MAE_Test: 30921.866
+      R2_Train: 0.7286
+      R2_Test: 0.7285
+      Overfitting_Ratio: 0.9908
+      N_Features: 93
+      Alpha: '-'
+    - Modelo: LASSO
+      RMSE_Train: 43365.5402
+      RMSE_Test: 42965.7384
+      MAE_Train: 31105.1426
+      MAE_Test: 30869.7329
+      R2_Train: 0.7285
+      R2_Test: 0.7284
+      Overfitting_Ratio: 0.9908
+      N_Features: 77
+      Alpha: '96.717986'
+    notebook: 02_modelos_tradicionales.ipynb
